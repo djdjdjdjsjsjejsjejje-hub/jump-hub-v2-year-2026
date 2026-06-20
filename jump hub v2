@@ -1,0 +1,88 @@
+-- Hussein Hub V2 2026
+-- Roblox Studio Only
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- جلب مكتبة WindUI
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+
+local Window = WindUI:CreateWindow({
+    Title = "Hussein Hub V2",
+    Icon = "rocket",
+    Author = "hussain_90_1",
+    Folder = "HusseinHub",
+    Size = UDim2.fromOffset(580, 460),
+    Transparent = true,
+    Theme = "Dark"
+})
+
+-- إنشاء الأقسام
+local Home = Window:Tab({
+    Title = "Home",
+    Icon = "home"
+})
+
+local PlayerTab = Window:Tab({
+    Title = "Player",
+    Icon = "user"
+})
+
+local Credits = Window:Tab({
+    Title = "Credits",
+    Icon = "info"
+})
+
+-- محتويات قسم Home
+Home:Paragraph({
+    Title = "Welcome",
+    Desc = "Welcome to Hussein Hub V2 (2026)"
+})
+
+-- محتويات قسم Player
+PlayerTab:Slider({
+    Title = "Jump Power",
+    Value = {
+        Min = 50,
+        Max = 500,
+        Default = 50,
+    },
+    Callback = function(value)
+        -- طريقة آمنة لتغيير القفز بدون تعليق السكربت
+        local character = player.Character
+        if character then
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                humanoid.UseJumpPower = true
+                humanoid.JumpPower = value
+            end
+        end
+    end
+})
+
+PlayerTab:Button({
+    Title = "Reset Jump",
+    Callback = function()
+        local character = player.Character
+        if character then
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                humanoid.JumpPower = 50
+            end
+        end
+    end
+})
+
+-- محتويات قسم Credits
+Credits:Paragraph({
+    Title = "Developer",
+    Desc = "hussain_90_1" 
+})
+
+Credits:Paragraph({
+    Title = "Version",
+    Desc = "V2 - 2026"
+})
+
+-- فتح قسم الهوم تلقائياً عند تشغيل السكربت
+Window:SelectTab(Home)
